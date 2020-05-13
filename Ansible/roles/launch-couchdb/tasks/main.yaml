@@ -1,0 +1,44 @@
+---
+- name: create config directory for couchdb
+  become: yes
+  file:
+    path: '/home/ubuntu/couchdb/etc'
+    recurse: yes
+    state: directory
+
+- name: copy vm.args to instance
+  become: yes
+  template:
+    src: vm.args.j2
+    dest: '/home/ubuntu/couchdb/etc/vm.args'
+    owner: ubuntu
+    group: ubuntu
+    force: no
+
+- name: copy local.ini to instance
+  become: yes
+  template:
+    src: local.ini
+    dest: '/home/ubuntu/couchdb/etc/local.ini'
+    owner: ubuntu
+    group: ubuntu
+    force: no
+
+- name: launch couchdb
+  become: yes
+  become_user: 'root'
+  docker_container:
+    name: couchdb
+    hostname: couchdb
+    image: 'couchdb:latest'
+    restart_policy: always
+    state: started
+    env:
+      COUCHDB_USER: 'admin'
+      COUCHDB_PASSWORD: 'password'
+    published_ports:
+      - 5984:5984
+    volumes:
+      - /home/ubuntu/couchdb/etc/local.ini:/opt/couchdb/etc/local.ini:rw
+      - /home/ubuntu/couchdb/data:/opt/couchdb/data
+      - /home/ubuntu/couchdb/etc/vm.args:/opt/couchdb/etc/vm.args:rw
