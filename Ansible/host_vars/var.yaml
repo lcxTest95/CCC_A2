@@ -3,13 +3,13 @@ availability_zone: melbourne-qh2-uom
 
 # Volume
 volumes:
-  - vol_name: demo-vol-1-1
-    vol_size: 10
-  - vol_name: demo-vol-1-2
-    vol_size: 10
-  - vol_name: demo-vol-2-1
-    vol_size: 10
-  - vol_name: demo-vol-2-2
+  - vol_name: vol-1
+    vol_size: 80
+  - vol_name: vol-2
+    vol_size: 80
+  - vol_name: vol-3
+    vol_size: 80
+  - vol_name: vol-4
     vol_size: 10
 
 # Security group
@@ -29,13 +29,19 @@ security_groups:
 
 # Instance
 instances:
-  - name: demo-1
-    volumes: ['demo-vol-1-1', 'demo-vol-1-2']
-  - name: demo-2
-    volumes: ['demo-vol-2-1', 'demo-vol-2-2']
+  - name: instance-1
+    volumes: ['vol-1']
+  - name: instance-2
+    volumes: ['vol-2']
+  - name: instance-3
+    volumes: ['vol-3']
+  - name: instance-4
+    volumes: ['vol-4']
 
 instance_image: 45225edb-66d8-4fd0-bf41-132a31a18166
 instance_key_name: lcx_1
 instance_flavor: uom.mse.2c9g
 
 cookie: 'cookie'
+num_dbnodes: 3
+dbnodes_to_add: [instance-2,instance-3]
