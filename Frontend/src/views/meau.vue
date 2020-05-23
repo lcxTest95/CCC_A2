@@ -4,33 +4,36 @@
         <Layout>
             <Header :style="{position: 'fixed', width: '100%'}" style="z-index:9999">
                 <Menu mode="horizontal" theme="dark" active-name="1">
-                    <!-- 替换为logo -->
-                    <div class="layout-logo"></div>
+                    <div class="layout-logo"> 
+						<img
+						src="../assets/images/logo2.png"
+						alt
+						/>
+                        </div>
                     <div class="layout-nav">
-                        <MenuItem name="1" to="/secondPage">
-                            <Icon type="ios-home" /></Icon>
-                           Home
+                        <MenuItem name="1" to="/">
+                            <Icon type="ios-home" />
+							Home Page
                         </MenuItem>
                         <MenuItem name="2" to="/map">
-                            <Icon type="ios-map" /></Icon>
-                            Map
+                            <Icon type="ios-map" />
+                            Heat Map
                         </MenuItem>
-                        <MenuItem name="3" to="/third">
-                            <Icon type="ios-analytics"></Icon>
-                            Graphs
+                        <MenuItem name="3" to="/graphs">
+                            <Icon type="ios-analytics" />
+							Statistical Graph
                         </MenuItem>
-                        <MenuItem name="4" to="/fourth">
-                            <Icon type="ios-paper"></Icon>
-                            Fourth Page
+                        <MenuItem name="4" to="/report">
+                            <Icon type="ios-paper"/>
+                            Modelling Report
                         </MenuItem>
                     </div>
-                    
                 </Menu>
             </Header>
-            <Content :style="{margin: '88px 20px 0', background: '#fff', minHeight: '83.8vh'}">
+            <Content :style="{margin: '90px 20px 0', background: '#fff', minHeight: '80vh'}">
                 <router-view></router-view>
             </Content>
-            <Footer class="layout-footer-center">2011-2016 &copy; TalkingData</Footer>
+            <Footer class="layout-footer-center">2020 S1 COMP90024 Team 36</Footer>
         </Layout>
     </div>
 </template>
@@ -50,14 +53,17 @@
     .layout-logo{
         width: 100px;
         height: 30px;
-        background: #5b6270;
+        background: #52596d;
         color: #fff;
         border-radius: 3px;
         float: left;
         position: relative;
-        top: 15px;
-        left: 20px;
+        top: 10px;
+        left: 0px;
     }
+	.layout-logo img {
+	  width: 120px;
+	}
     .layout-nav{
         width: 800px;
         margin: 0 auto;

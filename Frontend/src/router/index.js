@@ -4,37 +4,37 @@ import meau from '../views/meau.vue'
 
 Vue.use(VueRouter)
 
-  const routes = [
-    {
-      path: '/',
+const routes = [
+  {
+    path: '/',
+    name: 'welcome',
+    component: () => import('../views/welcome.vue')
+  },
+  {
+    path: '/meau',
     name: 'meau',
     component: meau,
-      meta: {
-        requireAuth: true
-      },
-      children: [
-        {
-          path: '/map',
-          name: 'map',
-          component: () => import('../views/map.vue')
-        },
-        {
-          path: '/secondPage',
-          name: 'secondPage',
-          component: () => import('../views/secondPage.vue')
-        },{
-          path: '/third',
-          name: 'third',
-          component: () => import('../views/third.vue')
-        }
-        ,{
-          path: '/fourth',
-          name: 'fourth',
-          component: () => import('../views/fourth.vue')
-        }
-      ]
+    meta: {
+      requireAuth: true
     },
-  
+    children: [
+      {
+        path: '/map',
+        name: 'map',
+        component: () => import('../views/map.vue')
+      },
+      {
+        path: '/graphs',
+        name: 'graphs',
+        component: () => import('../views/graphs.vue')
+      }, {
+        path: '/report',
+        name: 'report',
+        component: () => import('../views/report.vue')
+      }
+    ]
+  },
+
 ]
 
 const router = new VueRouter({
