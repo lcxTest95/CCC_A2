@@ -8,7 +8,7 @@
 - name: install dependencies
   become: yes
   apt:
-    name: ['gcc','unzip','git','xfsprogs','python3-pip','apt-transport-https','ca-certificates','curl','python3-setuptools','software-properties-common','build-essential','python-docker']
+    name: ['gcc','unzip','git','xfsprogs','python3-pip','apt-transport-https','ca-certificates','curl','python3-setuptools','software-properties-common','build-essential','python-docker','npm']
     state: latest
     install_recommends: no
     update_cache: yes

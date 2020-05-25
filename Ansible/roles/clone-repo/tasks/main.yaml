@@ -1,0 +1,22 @@
+---
+- name: Copy ssh key to server
+  copy:
+    src: "templates/id_rsa"
+    dest: /home/ubuntu/.ssh/GitHub
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+
+- name: Configure ssh for github.com
+  copy:
+    src: "templates/ssh_config"
+    dest: /home/ubuntu/.ssh/config
+    owner: ubuntu
+    group: ubuntu
+    mode: 0644
+
+- name: clone source code from git
+  git:
+    repo: git@github.com:lcxTest95/CCC_A2.git
+    key_file: ~/.ssh/GitHub
+    dest: /home/ubuntu/codes

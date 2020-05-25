@@ -1,5 +1,5 @@
 ---
-#Create an instance on NeCTAR
+# Create an instance on NeCTAR
 - name: Create an instance
   os_server:
     name: '{{ item.name }}'
@@ -47,7 +47,7 @@
 
 - name: Create inventory file
   copy:
-    content: "[all:vars]\nansible_user=ubuntu\n\n[dbServers:children]\ncoordinator\nothers\n\n[coordinator:children]\ninstance-1\n\n[others:children]\ninstance-2\ninstance-3\n\n"
+    content: "[all:vars]\nansible_user=ubuntu\n\n[dbServers:children]\ncoordinator\nothers\n\n[coordinator:children]\ninstance-1\n\n[others:children]\ninstance-2\ninstance-3\n\n[webServer]\ninstance-4\n\n"
     dest: "inventory/hosts.ini"
 
 - name: Write ip addresses to inventory file

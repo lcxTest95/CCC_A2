@@ -1,0 +1,14 @@
+- name: Install dependencies
+  become: yes
+  pip:
+    name: ['flask', 'flask-cors', 'couchdb']
+    state: latest
+    executable: pip3
+
+
+
+- name: Install vue
+  become: yes
+  npm:
+    name: 'vue'
+    global: yes
