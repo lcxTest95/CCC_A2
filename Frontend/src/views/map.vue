@@ -55,7 +55,7 @@ export default {
       let test_data = [];
       axios({
         method: "GET",
-        url: "http://127.0.0.1:5000/admin"
+        url: "http://172.26.132.19:5000/admin"
       }).then(res => {
         test_data = res.data;
         console.log(test_data);

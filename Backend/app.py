@@ -8,6 +8,7 @@ import requests
 import json
 import time
 import ast
+import socket
 from flask_cors import *
 
 USERNAME = 'ccc'
@@ -169,4 +170,5 @@ def hello_user(name):
 
 
 if __name__ == '__main__':
-   app.run(debug = True)
+   ip = socket.gethostbyname(socket.gethostname())
+   app.run(debug = True, host = ip)

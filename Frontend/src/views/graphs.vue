@@ -71,7 +71,7 @@ export default {
 	  let LatLon = require("../assets/json/SA4_2016_AUST.json");
       axios({
         method: "GET",
-        url: "http://127.0.0.1:5000/admin"
+        url: "http://172.26.132.19:5000/admin"
       }).then(res => {
         let test_data = res.data;
         let data = [];
