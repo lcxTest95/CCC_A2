@@ -174,4 +174,4 @@ if __name__ == '__main__':
    s.connect(("8.8.8.8", 80))
    ip = s.getsockname()[0]
    s.close()
-   app.run(debug = True, host = ip)
+   app.run(debug = False, host = ip)

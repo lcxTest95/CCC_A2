@@ -7,8 +7,7 @@
 
 
 
-- name: Install vue
+- name: npm install
   become: yes
   npm:
-    name: 'vue'
-    global: yes
+    path: '/home/ubuntu/codes/Frontend'
