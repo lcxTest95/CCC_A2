@@ -1,0 +1,59 @@
+---
+- name: enable cluster
+  uri:
+    url: 'http://localhost:5984/_cluster_setup'
+    user: ccc
+    password: '90024'
+    force_basic_auth: yes
+    status_code: 201
+    method: POST
+    body:
+      action: enable_cluster
+      bind_address: 0.0.0.0
+      username: 'ccc'
+      password: '90024'
+      port: 5984
+      node_count: '3'
+      remote_node: '{{ item }}'
+      remote_current_user: 'ccc'
+      remote_current_password: '90024'
+    body_format: json
+    headers:
+      Content-Type: application/json
+  register: result
+  with_inventory_hostnames: others
+
+- name: Add nodes
+  uri:
+    url: 'http://localhost:5984/_cluster_setup'
+    user: ccc
+    password: '90024'
+    force_basic_auth: yes
+    status_code: 201
+    method: POST
+    body:
+      action: add_node
+      host: '{{ item }}'
+      port: 5984
+      username: ccc
+      password: '90024'
+    body_format: json
+    headers:
+      Content-Type: application/json
+  register: result
+  with_inventory_hostnames: others
+
+- name: finish cluster
+  uri:
+    url: 'http://localhost:5984/_cluster_setup'
+    user: ccc
+    password: '90024'
+    force_basic_auth: yes
+    status_code: 201
+    method: POST
+    body:
+      action: finish_cluster
+    body_format: json
+    headers:
+      Content-Type: application/json
+  register: result
