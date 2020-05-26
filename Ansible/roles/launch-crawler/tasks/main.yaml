@@ -1,0 +1,7 @@
+---
+- name: Install dependencies
+  become: yes
+  pip:
+    name: ['emoji', 'pyshp', 'textblob','tweepy']
+    state: latest
+    executable: pip3

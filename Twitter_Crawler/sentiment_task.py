@@ -7,8 +7,6 @@ from nltk.stem import WordNetLemmatizer
 import emoji
 import re
 
-
-stop = set(stopwords.words('english')+ list(punctuation))
 lmtzr = WordNetLemmatizer()
 
 def preprocess(sentence):
