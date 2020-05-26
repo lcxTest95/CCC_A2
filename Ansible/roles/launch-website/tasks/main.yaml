@@ -11,6 +11,11 @@
     name: 'pm2'
     global: yes
 
+- name: Start processing data.
+  shell: 
+    cmd: pm2 start app.py --name backend --interpreter python3
+    chdir: /home/ubuntu/codes/Backend
+
 - name: npm install
   become: yes
   npm:
@@ -20,11 +25,6 @@
 # - name: Delete existing pm2 process
 #   command: pm2 delete all
 #   ignore_errors: yes
-
-- name: Start processing data.
-  shell: 
-    cmd: pm2 start app.py --name backend --interpreter python3
-    chdir: /home/ubuntu/codes/Backend
 
 - name: copy graphs.vue to server
   become: yes

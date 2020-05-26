@@ -2,6 +2,21 @@
 - name: Install dependencies
   become: yes
   pip:
-    name: ['emoji', 'pyshp', 'textblob','tweepy']
+    name: ['emoji', 'pyshp', 'textblob','tweepy','shapely']
     state: latest
     executable: pip3
+
+- name: Download nltk packages
+  shell: 
+    cmd: python3 download_dependencies.py
+    chdir: /home/ubuntu/codes/Twitter_Crawler
+
+- name: Start harvester
+  shell: 
+    cmd: pm2 start Harvester.py --name harvester --interpreter python3
+    chdir: /home/ubuntu/codes/Twitter_Crawler
+
+- name: Start searcher
+  shell: 
+    cmd: pm2 start Searcher.py --name searcher --interpreter python3
+    chdir: /home/ubuntu/codes/Twitter_Crawler

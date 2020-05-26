@@ -1,0 +1,51 @@
+---
+# Create an instance on NeCTAR
+- name: Create an instance
+  os_server:
+    name: '{{ item.name }}'
+    image: '{{ instance_image }}'
+    key_name: '{{ instance_key_name }}'
+    flavor: '{{ instance_flavor }}'
+    availability_zone: '{{ availability_zone }}'
+    security_groups: '{{ sg_names }}'
+    volumes: '{{ item.volumes }}'
+    auto_floating_ip: yes
+    wait: yes
+    timeout: 120
+    state: present
+  loop: '{{ instances }}'
+  register: os_instance
+
+- debug:
+    msg: "Instance {{ item.openstack.name }} has been created. IP address is {{ item.openstack.public_v4 }}"
+  loop: '{{ os_instance.results }}'
+  when: item.openstack is defined
+
+- name: Wait for connection
+  wait_for:
+    host: "{{ item.openstack.public_v4 }}"
+    port: 22
+    timeout: 120
+    search_regex: OpenSSH
+  loop: '{{ os_instance.results }}'
+  when: item.openstack is defined
+
+- name: set ip address to fact
+  set_fact:
+    ip_addresses: "{{ ip_addresses|default([]) + [ {'name': item.item.name, 'ip': item.openstack.public_v4} ] }}"
+  when: item.openstack is defined
+  loop: '{{ os_instance.results }}'
+
+- debug:
+    msg: "| ip_addresses ==> {{ ip_addresses }}"
+
+- name: Create inventory file
+  copy:
+    content: "[all:vars]\nansible_user=ubuntu\n\n[new]\ninstance-1-n\ninstance-2-n\ninstance-3-n\n\n"
+    dest: "inventory/hosts.ini"
+
+- name: Write ip addresses to inventory file
+  lineinfile:
+    line: "[{{ item.name }}]\n{{ item.ip }}\n"
+    dest: "inventory/hosts.ini"
+  loop: '{{ ip_addresses }}'

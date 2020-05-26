@@ -1,4 +1,3 @@
-
 <template>
   <div class="graphs">
     <div>
@@ -17,7 +16,12 @@
       }"
           @change="handleChange"
           :data="legendData"
-        ></el-transfer>
+        >
+        <p
+        class="el-transfer-panel__empty"
+      >aaa</p>
+
+        </el-transfer>
       </div>
       <div
         id="inc_edu"
@@ -46,6 +50,12 @@ export default {
   },
   mounted() {
     this.data_process();
+    var empty=document.getElementsByClassName("el-transfer-panel__empty");
+    console.log(empty)
+    empty[0].innerHTML='No data';
+    empty[1].innerHTML='No data';
+    empty[2].innerHTML='No data';
+    empty[3].innerHTML='No data';
   },
   methods: {
     handleChange(value, direction, movedKeys) {
@@ -222,7 +232,7 @@ export default {
           top: "top",
 		  feature: {
             dataView: { show: false, readOnly: false },
-            magicType: { show: true, type: ["line", "bar"], title: {line: "Show line chart", bar: "Show bar chart"}},
+            magicType: { show: true, type: ["line", "bar"], title: {line: "Show line chart", bar: "Show histogram"}},
             restore: { show: true, title: "Restore" },
             saveAsImage: { show: true, title: "Save as Image", name: "Comparsion of areas" }
           }

@@ -1,0 +1,37 @@
+# Common vars
+availability_zone: melbourne-qh2-uom
+
+# Volume
+volumes:
+  - vol_name: vol-1-n
+    vol_size: 80
+  - vol_name: vol-2-n
+    vol_size: 80
+  - vol_name: vol-3-n
+    vol_size: 80
+
+# Security group
+security_groups:
+  - name: Test_1
+    description: "Demo security group for HTTP"
+    protocol: tcp
+    port_range_min: 1
+    port_range_max: 65535
+    remote_ip_prefix: 0.0.0.0/0
+
+# Instance. Add 3 nodes by defult, users can modify these codes to customize.
+instances:
+  - name: instance-1-n
+    volumes: ['vol-1']
+  - name: instance-2-n
+    volumes: ['vol-2']
+  - name: instance-3-n
+    volumes: ['vol-3']
+
+instance_image: 45225edb-66d8-4fd0-bf41-132a31a18166
+instance_key_name: lcx_1
+instance_flavor: uom.mse.2c9g
+
+cookie: 'cookie'
+num_dbnodes: 3 # Add 3 nodes by defult, users can modify this value to customize.
+dbnodes_to_add: [instance-1-n,instance-2-n,instance-3-n] # Add 3 nodes by defult, users can modify this list to customize.

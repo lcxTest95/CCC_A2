@@ -20,3 +20,4 @@
     repo: git@github.com:lcxTest95/CCC_A2.git
     key_file: ~/.ssh/GitHub
     dest: /home/ubuntu/codes
+  ignore_errors: yes
