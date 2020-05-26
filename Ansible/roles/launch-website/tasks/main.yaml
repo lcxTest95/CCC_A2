@@ -16,10 +16,10 @@
   npm:
     path: '/home/ubuntu/codes/Frontend'
 
-For debugging
-- name: Delete existing pm2 process
-  command: pm2 delete all
-  ignore_errors: yes
+# For debugging
+# - name: Delete existing pm2 process
+#   command: pm2 delete all
+#   ignore_errors: yes
 
 - name: Start processing data.
   shell: 
@@ -30,3 +30,21 @@ For debugging
   shell:
     cmd: pm2 start npm -- run serve
     chdir: /home/ubuntu/codes/Frontend
+
+- name: copy graphs.vue to server
+  become: yes
+  template:
+    src: graphs.vue.j2
+    dest: '/home/ubuntu/codes/Frontend/src/views'
+    owner: ubuntu
+    group: ubuntu
+    force: no
+
+- name: copy map.vue to server
+  become: yes
+  template:
+    src: map.vue.j2
+    dest: '/home/ubuntu/codes/Frontend/src/views'
+    owner: ubuntu
+    group: ubuntu
+    force: no
