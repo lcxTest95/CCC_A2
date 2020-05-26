@@ -2,8 +2,8 @@
 - hosts: webServer
   vars_files:
     - host_vars/var.yaml
-  gather_facts: true
+  gather_facts: false
 
   roles:
-    - role: clone-repo
+    # - role: clone-repo
     - role: launch-crawler
