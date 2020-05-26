@@ -11,15 +11,6 @@
     cmd: python3 download_dependencies.py
     chdir: /home/ubuntu/codes/Twitter_Crawler
 
-- name: copy app.py to server
-  become: yes
-  template:
-    src: app.py.j2
-    dest: '/home/ubuntu/codes/Backend/run.py'
-    owner: ubuntu
-    group: ubuntu
-    force: no
-
 - name: copy Harvester.py to server
   become: yes
   template:
