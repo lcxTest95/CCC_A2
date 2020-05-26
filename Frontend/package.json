@@ -1,12 +1,11 @@
 {
-  "name": "map",
-  "version": "0.1.0",
+  "name": "Team36_COMP90024",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "stop": "node server.stop.js"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^0.19.2",

@@ -26,16 +26,11 @@
     cmd: pm2 start app.py --name backend --interpreter python3
     chdir: /home/ubuntu/codes/Backend
 
-- name: Start Vue serve
-  shell:
-    cmd: pm2 start npm -- run serve
-    chdir: /home/ubuntu/codes/Frontend
-
 - name: copy graphs.vue to server
   become: yes
   template:
     src: graphs.vue.j2
-    dest: '/home/ubuntu/codes/Frontend/src/views'
+    dest: '/home/ubuntu/codes/Frontend/src/views/graphs.vue'
     owner: ubuntu
     group: ubuntu
     force: no
@@ -44,7 +39,12 @@
   become: yes
   template:
     src: map.vue.j2
-    dest: '/home/ubuntu/codes/Frontend/src/views'
+    dest: '/home/ubuntu/codes/Frontend/src/views/map.vue'
     owner: ubuntu
     group: ubuntu
     force: no
+    
+- name: Start Vue serve
+  shell:
+    cmd: pm2 start npm -- run serve
+    chdir: /home/ubuntu/codes/Frontend

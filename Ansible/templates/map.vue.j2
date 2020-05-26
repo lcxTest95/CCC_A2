@@ -21,23 +21,23 @@ export default {
       //Define the value for each variable
       for (var key in LatLon["features"]) {
         count_LatLon++;
-        let name_value = LatLon["features"][key]["properties"]["SA4_CODE"];
-        let name_value1 = LatLon["features"][key]["properties"]["STATE_NAME"];
-        LatLon["features"][key]["properties"]["name"] = name_value;
-        if (the_data[name_value]) {
+        let sa4_code = LatLon["features"][key]["properties"]["SA4_CODE"];
+        let sa4_state = LatLon["features"][key]["properties"]["STATE_NAME"];
+        LatLon["features"][key]["properties"]["name"] = sa4_code;
+        if (the_data[sa4_code]) {
           let json = {
-            name: name_value,
-            value: the_data[name_value]["pol"] * 1000,
-            inc: the_data[name_value]["inc"],
-            edu: the_data[name_value]["edu"],
-            emo: the_data[name_value]["pol1"],
-			h1 : the_data[name_value]["hashtag1"],
-			h2 : the_data[name_value]["hashtag2"],
-			h3 : the_data[name_value]["hashtag3"],
-            State_name:
+            name: sa4_code,
+            value: the_data[sa4_code]["pol"] * 1000,
+            inc: the_data[sa4_code]["inc"],
+            edu: the_data[sa4_code]["edu"],
+            emo: the_data[sa4_code]["pol1"],
+			h1 : the_data[sa4_code]["hashtag1"],
+			h2 : the_data[sa4_code]["hashtag2"],
+			h3 : the_data[sa4_code]["hashtag3"],
+            sa4_name:
               LatLon["features"][key]["properties"]["SA4_NAME"] +
               ", " +
-              name_value1,
+              sa4_state,
             sa4: LatLon["features"][key]["properties"]["SA4_NAME"]
           };
           data.push(json);
@@ -49,17 +49,23 @@ export default {
     //echarts drawing
     draw() {
       let myChart = this.$echarts.init(document.getElementById("Map"));
-      myChart.showLoading();
+     // myChart.showLoading();
+	  myChart.showLoading({
+		  text: "LOADING" + '\n' + "Please refreash the website after data analysis finished.",
+	      textStyle: { fontSize : 50 , color: '#444' },
+	      effectOption: {backgroundColor: 'rgba(0, 0, 0, 0)'},
+		  }); 
+
       //Get data from json and Back-end
       let LatLon = require("../assets/json/SA4_2016_AUST.json");
-      let test_data = [];
+      let data = [];
       axios({
         method: "GET",
         url: "http://{{ansible_host}}:5000/admin"
       }).then(res => {
-        test_data = res.data;
-        console.log(test_data);
-        let all_data = this.data_process(LatLon, test_data);
+        data = res.data;
+        console.log(data);
+        let all_data = this.data_process(LatLon, data);
         console.log(all_data);
         this.$echarts.registerMap("Australia", all_data["LatLon"]);
         let option = {
@@ -85,7 +91,7 @@ export default {
                 "SA4 Code: " +
                 params.data.name +
                 "<br/>" +
-                params.data.State_name +
+                params.data.sa4_name +
                 "<br/> Emotion: " +
                 params.data.emo +
                 "<br/> Income: $" +
@@ -130,9 +136,9 @@ export default {
             left: "left",
             top: "top",
             feature: {
-              dataView: { readOnly: false },
-              restore: {},
-              saveAsImage: {}
+              dataView: { show: false },
+              restore: {title: "Restore"},
+              saveAsImage: {title: "Save as Image", name: "Heat Map of Mood"}
             }
           },
           series: [

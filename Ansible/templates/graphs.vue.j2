@@ -10,6 +10,7 @@
           :render-content="renderFunc"
           :titles="['Source', 'Target']"
           :button-texts="['Delete', 'Add']"
+		  filter-placeholder="Search an area"
           :format="{
         noChecked: '${total}',
         hasChecked: '${checked}/${total}'
@@ -71,7 +72,7 @@ export default {
 	  let LatLon = require("../assets/json/SA4_2016_AUST.json");
       axios({
         method: "GET",
-        url: "http://172.26.132.19:5000/admin"
+        url: "http://{{ansible_host}}:5000/admin"
       }).then(res => {
         let test_data = res.data;
         let data = [];
@@ -218,11 +219,12 @@ export default {
           }
         },
         toolbox: {
-          feature: {
-            dataView: { show: true, readOnly: false },
-            magicType: { show: true, type: ["line", "bar"] },
-            restore: { show: true },
-            saveAsImage: { show: true }
+          top: "top",
+		  feature: {
+            dataView: { show: false, readOnly: false },
+            magicType: { show: true, type: ["line", "bar"], title: {line: "Show line chart", bar: "Show bar chart"}},
+            restore: { show: true, title: "Restore" },
+            saveAsImage: { show: true, title: "Save as Image", name: "Comparsion of areas" }
           }
         },
         legend: {
