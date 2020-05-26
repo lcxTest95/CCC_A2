@@ -45,7 +45,7 @@ def sort_hashtag(to_web_dic):
 
 
 def creatdic(webdic):
-   server = couchdb.Server("http://%s:%s@%s:%s" % ('ccc', '90024', '172.26.128.112', '5984'))
+   server = couchdb.Server("http://%s:%s@%s:%s" % ('ccc', '90024', ADDRESS, '5984'))
    db1 = server['incoming']
    db2 = server['education']
    addlist = []

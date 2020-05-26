@@ -1,15 +1,15 @@
 ---
-# - name: Install dependencies
-#   become: yes
-#   pip:
-#     name: ['emoji', 'pyshp', 'textblob','tweepy','shapely']
-#     state: latest
-#     executable: pip3
+- name: Install dependencies
+  become: yes
+  pip:
+    name: ['emoji', 'pyshp', 'textblob','tweepy','shapely']
+    state: latest
+    executable: pip3
 
-# - name: Download nltk packages
-#   shell: 
-#     cmd: python3 download_dependencies.py
-#     chdir: /home/ubuntu/codes/Twitter_Crawler
+- name: Download nltk packages
+  shell: 
+    cmd: python3 download_dependencies.py
+    chdir: /home/ubuntu/codes/Twitter_Crawler
 
 - name: copy app.py to server
   become: yes
@@ -20,12 +20,39 @@
     group: ubuntu
     force: no
 
-# - name: Start harvester
-#   shell: 
-#     cmd: pm2 start Harvester.py --name harvester --interpreter python3
-#     chdir: /home/ubuntu/codes/Twitter_Crawler
+- name: copy Harvester.py to server
+  become: yes
+  template:
+    src: Harvester.py.j2
+    dest: '/home/ubuntu/codes/Twitter_Crawler/Harvester.py'
+    owner: ubuntu
+    group: ubuntu
+    force: no
 
-# - name: Start searcher
-#   shell: 
-#     cmd: pm2 start Searcher.py --name searcher --interpreter python3
-#     chdir: /home/ubuntu/codes/Twitter_Crawler
+- name: copy Searcher.py to server
+  become: yes
+  template:
+    src: Searcher.py.j2
+    dest: '/home/ubuntu/codes/Twitter_Crawler/Searcher.py'
+    owner: ubuntu
+    group: ubuntu
+    force: no
+
+- name: copy couchView.py to server
+  become: yes
+  template:
+    src: couchView.py.j2
+    dest: '/home/ubuntu/codes/MapReduce/couchView.py'
+    owner: ubuntu
+    group: ubuntu
+    force: no
+
+- name: Start harvester
+  shell: 
+    cmd: pm2 start Harvester.py --name harvester --interpreter python3
+    chdir: /home/ubuntu/codes/Twitter_Crawler
+
+- name: Start searcher
+  shell: 
+    cmd: pm2 start Searcher.py --name searcher --interpreter python3
+    chdir: /home/ubuntu/codes/Twitter_Crawler

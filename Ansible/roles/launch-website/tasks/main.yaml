@@ -11,9 +11,18 @@
     name: 'pm2'
     global: yes
 
+- name: copy app.py to server
+  become: yes
+  template:
+    src: app.py.j2
+    dest: '/home/ubuntu/codes/Backend/run.py'
+    owner: ubuntu
+    group: ubuntu
+    force: no
+
 - name: Start processing data.
   shell: 
-    cmd: pm2 start app.py --name backend --interpreter python3
+    cmd: pm2 start run.py --name backend --interpreter python3
     chdir: /home/ubuntu/codes/Backend
 
 - name: npm install
